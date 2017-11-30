@@ -13,52 +13,56 @@ using System.Threading;
 using System;
 using Newtonsoft.Json;
 using Overwatch.Shared;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Overwatch.AzureFunctions
 {
     public static class ImageProcessor
     {
         [FunctionName("ImageProcessor")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
+        public static void Run([BlobTrigger("trucks/{name}", Connection = "blobConnection")]Stream myBlob, string name, TraceWriter log)
         {
-            log.Info("C# HTTP trigger function processed a request.");
-
-            var connectionString = "DefaultEndpointsProtocol=https;AccountName=hpkimagestorage;AccountKey=7eG/6kr0HV1hYk9Inl6EzGvtMxo4M++zVNeoJmPOFdf7wch7UEZHO7dvP3g0LI4QlLUzWmK7fIgFvxPFYKlrTQ==;EndpointSuffix=core.windows.net";
-            var containerName = "trucks";
-
-            var storageAccount = CloudStorageAccount.Parse(connectionString);
-            // Create the blob client.
-            var blobClient = storageAccount.CreateCloudBlobClient();
-
-            // Retrieve reference to a previously created container, or it will create the container if it wasn't previously created.
-            var container = blobClient.GetContainerReference(containerName);
-
-            foreach (IListBlobItem blob in container.ListBlobs())
+            Guid projectId = Guid.Parse("61f0cc4c-fb4f-4d62-95e1-2b2c631ae9b8");
+            var imageUrl = $"https://hpkimagestorage.blob.core.windows.net/trucks/{name}";
+            var propertyNumber = name.Substring(0, name.IndexOf("/"));
+            var imagePredictions = ProcessImagePredictions(imageUrl,projectId);
+            if (imagePredictions != null)
             {
-                if (blob.GetType() == typeof(CloudBlobDirectory))
+                List<PropertyAlertStatu> alertStatuses = new List<PropertyAlertStatu>();
+                using (var context = new OverwatchEntities())
                 {
-                    CloudBlobDirectory directory = (CloudBlobDirectory)blob;
-                    foreach (IListBlobItem innerBlob in directory.ListBlobs())
-                    {
-                        if (innerBlob.GetType() != typeof(CloudBlobDirectory))
-                        {
-                            var propertyNumber = innerBlob.Uri.Segments[2].Replace("/", "");
-                            var imageUrl = innerBlob.Uri;
-                            var imagePredictions = ProcessImagePredictions(imageUrl.ToString());
-                            if (imagePredictions != null)
-                            {
-                                string predictionAsJson = JsonConvert.SerializeObject(imagePredictions.Predictions);
-                                var result = ProcessAlert(propertyNumber, imageUrl, predictionAsJson);
-                            }
-                        }
-                    }
+                    alertStatuses = context.PropertyAlertStatus.ToList();
                 }
-            }
+                string predictionAsJson = JsonConvert.SerializeObject(imagePredictions.Predictions);
+                //check for type of alert
+                //this is just getting the first tag that is over 90% but you would want to do more here.
+                var tagInAlert = imagePredictions.Predictions.Where(x => x.Probability > .9).FirstOrDefault();
+                var alertStatusId = 1;
+                switch(tagInAlert.Tag)
+                {
+                    case "pickups" :
+                        alertStatusId = alertStatuses.First(x => x.propertyAlertStatus == "Unrecognized pickup").id;
+                        break;
+                    case "trucks":
+                        alertStatusId = alertStatuses.First(x => x.propertyAlertStatus == "Unrecognized semi").id;
+                        break;
+                    case "logos":
+                        Guid chkProjectId = Guid.Parse("72550364-3d7a-46b7-a191-8369ae2749ba");
+                        var logoResult = ProcessImagePredictions(imageUrl, chkProjectId);
+                        if (logoResult != null)
+                        {
+                            alertStatusId = alertStatuses.First(x => x.propertyAlertStatus == "Recognized vehicle (Chesapeake)").id;
+                        }
+                        break;
 
-            return req.CreateResponse(HttpStatusCode.OK, "Successfully processed images");
+                }
+
+                var result = ProcessAlert(propertyNumber, imageUrl, predictionAsJson,alertStatusId);
+            }
         }
 
-        private static bool ProcessAlert(string propertyNumber, Uri imageUrl, string predictionAsJson)
+        private static bool ProcessAlert(string propertyNumber, string imageUrl, string predictionAsJson, int alertStatusId)
         {
             var result = false;
             using (var context = new OverwatchEntities())
@@ -68,9 +72,9 @@ namespace Overwatch.AzureFunctions
                 {
                     PropertyAlert propertyAlert = new PropertyAlert()
                     {
-                        imageUrl = imageUrl.ToString(),
+                        imageUrl = imageUrl,
                         createTimestamp = DateTime.Now,
-                        propertyAlertStatusId = 1,
+                        propertyAlertStatusId = alertStatusId,
                         propertyId = property.id,
                         predictionJson = predictionAsJson
                     };
@@ -84,10 +88,9 @@ namespace Overwatch.AzureFunctions
             return result;
         }
 
-        private static ImagePredictionResultModel ProcessImagePredictions(string imageUrl)
+        private static ImagePredictionResultModel ProcessImagePredictions(string imageUrl, Guid projectId)
         {
             string predictionKey = "6c9f96aa9a574ab8b3aa18f5e0ec4c1c";
-            Guid projectId = Guid.Parse("2f3ab445-617c-42c6-a5b6-d73009d8db56");
             var shouldAlert = false;
 
             // Create a prediction endpoint, passing in a prediction credentials object that contains the obtained prediction key
