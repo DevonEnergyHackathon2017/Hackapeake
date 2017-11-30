@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c7ca433e3c54656a105a62237511735" Name="Diagram1">
+        <EntityTypeShape EntityType="OverwatchModel.Property" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OverwatchModel.PropertyAlert" Width="2.875" PointX="4.625" PointY="1.125" />
+        <AssociationConnector Association="OverwatchModel.FK__PropertyA__prope__5070F446" />
+        <EntityTypeShape EntityType="OverwatchModel.PropertyStatus" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="OverwatchModel.FK__Property__proper__534D60F1" />
+        <EntityTypeShape EntityType="OverwatchModel.PropertyAlertStatu" Width="1.5" PointX="3.375" PointY="4.875" />
+        <AssociationConnector Association="OverwatchModel.FK__PropertyA__prope__5629CD9C" />
+        <EntityTypeShape EntityType="OverwatchModel.Severity" Width="1.5" PointX="1.125" PointY="8.125" />
+        <AssociationConnector Association="OverwatchModel.FK__PropertyA__sever__59FA5E80" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
