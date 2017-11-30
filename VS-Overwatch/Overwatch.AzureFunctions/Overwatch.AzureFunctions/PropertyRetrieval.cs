@@ -29,6 +29,8 @@ namespace Overwatch.AzureFunctions
                     sourceName = n.sourceName,
                     approximateNumOfPeople = n.approximateNumOfPeople,
                     propertyStatus = n.PropertyStatus.propertyStatus,
+                    latitude = n.latitude,
+                    longitude = n.longitude,
                     latestPropertyAlert = (n.PropertyAlerts.FirstOrDefault() == null) ? null : new
                     {
                         propertyAlert = n.PropertyAlerts.FirstOrDefault().PropertyAlertStatus.propertyAlertStatus,

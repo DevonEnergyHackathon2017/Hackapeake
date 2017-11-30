@@ -1,6 +1,106 @@
-<div>
-  {{latestAlertDescription}}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm">
+      <div class="card">
+        <h4 class="card-header">Site Details</h4>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm"><strong>Well Name</strong></div>
+                  <div class="col-sm">{{detail?.propertyName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Property Number</strong></div>
+                    <div class="col-sm">{{detail?.propertyNumber}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Well Status</strong></div>
+                    <div class="col-sm">{{detail?.propertyStatus}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Estimated Personnel Present</strong></div>
+                    <div class="col-sm">{{detail?.approximateNumOfPeople}}</div>
+                </div>
+              </div>
+        </div>
+      </div>
+
+      <div class="card mt-5">
+          <h4 class="card-header">Weather</h4>
+          <div class="card-body">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-sm"><strong>Well Name</strong></div>
+                    <div class="col-sm">{{detail?.propertyName}}</div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm"><strong>Property Number</strong></div>
+                      <div class="col-sm">{{detail?.propertyNumber}}</div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm"><strong>Well Status</strong></div>
+                      <div class="col-sm">{{detail?.propertyStatus}}</div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm"><strong>Estimated Personnel Present</strong></div>
+                      <div class="col-sm">{{detail?.approximateNumOfPeople}}</div>
+                  </div>
+                </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <h4 class="card-header">Crime Report</h4>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                      <div class="col-sm">
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                              <button type="button" class="btn btn-secondary" style="background-color: black" id='btn-heatmap'>View Heatmap</button>
+                              <button type="button" class="btn btn-secondary" id='btn-markers'>View Markers</button>
+                            </div>
+                          <br /><br /><br />
+                          <div id="map"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-sm">
+          <div class="card">
+              <h4 class="card-header" >Latest Alert</h4>
+              <div class="card-body">
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-sm">
+                            <img [src]="imageUrl" style="width: 600px"/>
+                        </div>
+                        <div class="col-sm">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm"><strong>{{latestAlertDescription}}</strong></div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-sm">
+                                      <p>Should this vehicle be on site?</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
 </div>
-<div>
-  <img [src]="imageUrl"/>
+
+
+  <div>
 </div>
