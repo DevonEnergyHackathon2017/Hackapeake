@@ -54,8 +54,14 @@ namespace Overwatch.AzureFunctions
                         {
                             alertStatusId = alertStatuses.First(x => x.propertyAlertStatus == "Recognized vehicle (Chesapeake)").id;
                         }
+                        else
+                        {
+                            alertStatusId = alertStatuses.First(x => x.propertyAlertStatus == "Unmarked vehicle").id;
+                        }
                         break;
-
+                    default:
+                        alertStatusId = alertStatuses.First(x => x.propertyAlertStatus == "Unmarked vehicle").id;
+                        break;
                 }
 
                 var result = ProcessAlert(propertyNumber, imageUrl, predictionAsJson,alertStatusId);
