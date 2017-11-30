@@ -27,17 +27,24 @@ namespace Overwatch.AzureFunctions
                     propertyNumber = n.propertyNumber,
                     propertyName = n.propertyName,
                     sourceName = n.sourceName,
+                    lattitude = n.latitude,
+                    longitude = n.longitude,
                     approximateNumOfPeople = n.approximateNumOfPeople,
                     propertyStatus = n.PropertyStatus.propertyStatus,
-                    latitude = n.latitude,
-                    longitude = n.longitude,
-                    latestPropertyAlert = (n.PropertyAlerts.FirstOrDefault() == null) ? null : new
+                    latestPropertyAlert = (n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault() == null) ? null : new
                     {
-                        propertyAlert = n.PropertyAlerts.FirstOrDefault().PropertyAlertStatus.propertyAlertStatus,
-                        timestamp = n.PropertyAlerts.FirstOrDefault().createTimestamp,
-                        imageUrl = n.PropertyAlerts.FirstOrDefault().imageUrl,
-                        severity = n.PropertyAlerts.FirstOrDefault().PropertyAlertStatus.Severity.severity1
-                    }
+                        propertyAlert = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().PropertyAlertStatus.propertyAlertStatus,
+                        timestamp = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().createTimestamp,
+                        imageUrl = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().imageUrl,
+                        severity = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().PropertyAlertStatus.Severity.severity1
+                    },
+                    latestFivePropertyAlerts = (n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).Skip(1).Take(5).Select(x => new
+                    {
+                        propertyAlert = x.PropertyAlertStatus.propertyAlertStatus,
+                        timestamp = x.createTimestamp,
+                        imageUrl = x.imageUrl,
+                        severity = x.PropertyAlertStatus.Severity.severity1
+                    }))
                 });
 
                 if (propertyId.Value == null)
