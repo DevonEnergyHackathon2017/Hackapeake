@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\asofi_000\Desktop\Hackathon\Hackapeake\VS-Overwatch\Overwatch.AzureFunctions\Overwatch.Shared\OverwatchContext.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\aredman\source\repos\Overwatch-Repo\VS-Overwatch\Overwatch.AzureFunctions\Overwatch.Shared\OverwatchContext.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

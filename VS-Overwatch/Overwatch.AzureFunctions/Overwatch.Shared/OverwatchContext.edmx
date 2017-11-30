@@ -27,6 +27,7 @@
           <Property Name="createTimestamp" Type="datetime" />
           <Property Name="propertyId" Type="int" />
           <Property Name="propertyAlertStatusId" Type="int" Nullable="false" />
+          <Property Name="predictionJson" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PropertyAlertStatus">
           <Key>
@@ -174,6 +175,7 @@
           <NavigationProperty Name="Property" Relationship="OverwatchModel.FK__PropertyA__prope__5070F446" FromRole="PropertyAlert" ToRole="Property" />
           <Property Name="propertyAlertStatusId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PropertyAlertStatus" Relationship="OverwatchModel.FK__PropertyA__prope__5629CD9C" FromRole="PropertyAlert" ToRole="PropertyAlertStatu" />
+          <Property Name="predictionJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__PropertyA__prope__5070F446">
           <End Type="OverwatchModel.Property" Role="Property" Multiplicity="0..1" />
@@ -272,6 +274,7 @@
           <EntitySetMapping Name="PropertyAlerts">
             <EntityTypeMapping TypeName="OverwatchModel.PropertyAlert">
               <MappingFragment StoreEntitySet="PropertyAlert">
+                <ScalarProperty Name="predictionJson" ColumnName="predictionJson" />
                 <ScalarProperty Name="propertyAlertStatusId" ColumnName="propertyAlertStatusId" />
                 <ScalarProperty Name="propertyId" ColumnName="propertyId" />
                 <ScalarProperty Name="createTimestamp" ColumnName="createTimestamp" />

@@ -19,6 +19,7 @@ namespace Overwatch.Shared
         public Nullable<System.DateTime> createTimestamp { get; set; }
         public Nullable<int> propertyId { get; set; }
         public int propertyAlertStatusId { get; set; }
+        public string predictionJson { get; set; }
     
         public virtual Property Property { get; set; }
         public virtual PropertyAlertStatu PropertyAlertStatus { get; set; }
