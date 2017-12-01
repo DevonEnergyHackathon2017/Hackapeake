@@ -52,7 +52,7 @@ namespace Overwatch.AzureFunctions
 
                 if (propertyId.Value == null)
                 {       
-                    return req.CreateResponse(query.ToList());
+                    return req.CreateResponse(query.OrderByDescending(x => x.latestPropertyAlert.timestamp).ToList());
                 }
                 else
                 {
