@@ -8,6 +8,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using Overwatch.Shared;
 
 namespace Overwatch.AzureFunctions
 {
@@ -34,16 +36,18 @@ namespace Overwatch.AzureFunctions
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
             HttpResponseMessage response = httpClient.GetAsync($"https://api.weather.gov/points/{dblLat},{dblLong}/forecast").Result;
-
-
+            
             if (response.IsSuccessStatusCode)
             {
-                dynamic weatherData = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                string json = response.Content.ReadAsStringAsync().Result;
+                //JObject weatherData = JObject.Parse(json);
+                WeatherModel weatherData = JsonConvert.DeserializeObject<WeatherModel>(json);
+                //var foo = weatherData.Children()["properties"];
+                //string foo = weatherData..First.Last.First[0]["name"].Value<string>();
+                var currentData = weatherData.properties.periods[0];
 
-
+                return req.CreateResponse(currentData);
             }
-
-            
             return null;
         }
     }

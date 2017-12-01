@@ -80,6 +80,7 @@
     <Compile Include="Severity.cs">
       <DependentUpon>OverwatchContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="WeatherModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="OverwatchContext.edmx">

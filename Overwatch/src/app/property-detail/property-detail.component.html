@@ -26,24 +26,24 @@
       </div>
 
       <div class="card mt-5">
-          <h4 class="card-header">Weather</h4>
+          <h4 class="card-header">Current Weather</h4>
           <div class="card-body">
               <div class="container">
                   <div class="row">
-                    <div class="col-sm"><strong>Well Name</strong></div>
-                    <div class="col-sm">{{detail?.propertyName}}</div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm"><strong>Property Number</strong></div>
-                      <div class="col-sm">{{detail?.propertyNumber}}</div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm"><strong>Well Status</strong></div>
-                      <div class="col-sm">{{detail?.propertyStatus}}</div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm"><strong>Estimated Personnel Present</strong></div>
-                      <div class="col-sm">{{detail?.approximateNumOfPeople}}</div>
+                    <div class="col-5">
+                        <div class="col-sm"><img [src]='weatherData?.icon'/></div>
+                    </div>
+                    <div class="col-5">
+                      <div class="row">
+                          <div class="col-sm"><strong>{{weatherData?.temperature}}{{weatherData?.temperatureUnit}}</strong></div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm"><strong>{{weatherData?.windSpeed}}</strong></div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm"><strong>{{weatherData?.windDirection}}</strong></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
           </div>

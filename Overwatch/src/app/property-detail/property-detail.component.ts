@@ -15,6 +15,7 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
   detail: any;
   latestAlertDescription: string;
   imageUrl: string;
+  weatherData: any;
 
   constructor(private route: ActivatedRoute, private httpClient: HttpClient) { }
 
@@ -29,6 +30,12 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
         console.log(this.detail);
         console.log(this.detail.latitude);
         console.log(this.detail.longitude);
+
+        this.httpClient.get('http://localhost:7071/api/Weather?lat=' + this.detail.latitude  + '&long=' + this.detail.longitude)
+        .subscribe(weatherData => {
+          this.weatherData = weatherData;
+        });
+
         ///
       var map, heatmap;
       var latitude = this.detail.latitude;
