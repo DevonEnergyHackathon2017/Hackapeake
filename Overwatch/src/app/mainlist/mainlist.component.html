@@ -1,3 +1,5 @@
+
+
 <table class="table table-striped">
   <thead>
     <th>Property</th>
@@ -10,7 +12,7 @@
     <tr *ngFor='let property of properties'>
       <td>{{property.propertyName}} ({{property.propertyNumber}}) </td>
       <td>{{property.propertyStatus}}</td>
-      <td [ngClass]="{hpkalert: property.latestPropertyAlert?.severity==='low'}">{{property.latestPropertyAlert?.propertyAlert}}</td>
+      <td [ngClass]="{hpkalert: property.latestPropertyAlert?.severity==='critical'}">{{property.latestPropertyAlert?.propertyAlert}}</td>
       <td>{{property.latestPropertyAlert?.timestamp}}</td>
       <td><button [routerLink]="['/property-detail', property.id]">Details</button></td>
     </tr>

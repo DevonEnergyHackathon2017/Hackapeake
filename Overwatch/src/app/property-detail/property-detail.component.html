@@ -73,7 +73,7 @@
     <div class="row mt-5">
       <div class="col-sm">
           <div class="card">
-              <h4 class="card-header" >Latest Alert</h4>
+              <h4 class="card-header" [ngClass]="{'bg-success': detail.latestPropertyAlert?.severity==='low', 'bg-danger': detail.latestPropertyAlert?.severity==='critical'}">Latest Alert</h4>
               <div class="card-body">
                   <div class="container">
                       <div class="row">

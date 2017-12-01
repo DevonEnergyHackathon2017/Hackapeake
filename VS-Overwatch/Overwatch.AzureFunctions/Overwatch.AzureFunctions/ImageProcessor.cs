@@ -31,7 +31,9 @@ namespace Overwatch.AzureFunctions
             if (imagePredictions != null)
             {
                 List<PropertyAlertStatu> alertStatuses = new List<PropertyAlertStatu>();
-                using (var context = new OverwatchEntities())
+
+                var connString = ConfigurationManager.AppSettings["OverwatchConnectionString"];
+                using (var context = new OverwatchEntities(connString))
                 {
                     alertStatuses = context.PropertyAlertStatus.ToList();
                 }
