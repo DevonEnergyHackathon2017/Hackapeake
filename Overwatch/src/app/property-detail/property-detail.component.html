@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-5">
                       <div class="row">
-                          <div class="col-sm"><strong>{{weatherData?.temperature}}{{weatherData?.temperatureUnit}}</strong></div>
+                          <div class="col-sm"><strong>{{weatherData?.temperature}} &#8457;</strong></div>
                       </div>
                       <div class="row">
                           <div class="col-sm"><strong>{{weatherData?.windSpeed}}</strong></div>
@@ -73,7 +73,7 @@
     <div class="row mt-5">
       <div class="col-sm">
           <div class="card">
-              <h4 class="card-header" [ngClass]="{'bg-success': detail.latestPropertyAlert?.severity==='low', 'bg-danger': detail.latestPropertyAlert?.severity==='critical'}">Latest Alert</h4>
+              <h4 class="card-header" [ngClass]="{'bg-success': detail?.latestPropertyAlert?.severity==='low', 'bg-danger': detail?.latestPropertyAlert?.severity==='critical'}">Latest Alert</h4>
               <div class="card-body">
                   <div class="container">
                       <div class="row">
@@ -90,7 +90,13 @@
                                 </div>
                                 <br/>
                                 <div class="row">
-                                    <div class="col-sm" style="word-wrap:break-word">{{detail?.latestPropertyAlert?.predictionJson}}</div>
+                                    <div class="col-sm" style="word-wrap:break-word">
+                                      <ul>
+                                        <li *ngFor='let prediction of predictions'>
+                                          {{prediction.tag}}: {{prediction.probability}}%
+                                        </li>
+                                      </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

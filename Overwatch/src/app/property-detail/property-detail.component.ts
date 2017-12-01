@@ -18,6 +18,7 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
   latestAlertDescription: string;
   imageUrl: string;
   weatherData: any;
+  predictions: any[];
 
   constructor(private route: ActivatedRoute, private httpClient: HttpClient) { }
 
@@ -30,8 +31,20 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
         if (this.detail.latestPropertyAlert) {
           this.latestAlertDescription = this.detail.latestPropertyAlert.propertyAlert;
           this.imageUrl = this.detail.latestPropertyAlert.imageUrl;
+          this.predictions = [];
+          var parsingPredictions = JSON.parse(this.detail.latestPropertyAlert.predictionJson);
+
+          for (let prediction of parsingPredictions)
+          {
+            this.predictions.push({
+              'tag': prediction.Tag,
+              'probability': Math.round(prediction.Probability * 100)
+            });
+          }
+
+          console.log(this.predictions);
         }
-        
+
         console.log(this.detail);
         console.log(this.detail.latitude);
         console.log(this.detail.longitude);
