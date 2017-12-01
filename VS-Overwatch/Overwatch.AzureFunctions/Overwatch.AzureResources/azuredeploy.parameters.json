@@ -1,0 +1,117 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "servers_hpkoverwatch_name": {
+      "value": null
+    },
+    "sites_hpk_overwatch_dev4_name": {
+      "value": null
+    },
+    "sites_hpk_overwatch_func_name": {
+      "value": null
+    },
+    "serverfarms_CentralUSPlan_name": {
+      "value": null
+    },
+    "serverfarms_hpk_overwatch_dev_sp_name": {
+      "value": null
+    },
+    "storageAccounts_hpkimagestorage_name": {
+      "value": null
+    },
+    "config_web_name": {
+      "value": null
+    },
+    "config_web_name_1": {
+      "value": null
+    },
+    "databases_master_name": {
+      "value": null
+    },
+    "firewallRules_new_name": {
+      "value": null
+    },
+    "storageAccounts_hpkoverwatchfunb4ed_name": {
+      "value": null
+    },
+    "keys_ServiceManaged_name": {
+      "value": null
+    },
+    "firewallRules_newtest_name": {
+      "value": null
+    },
+    "databases_hpk_overwatch_name": {
+      "value": null
+    },
+    "auditingPolicies_Default_name": {
+      "value": null
+    },
+    "encryptionProtector_current_name": {
+      "value": null
+    },
+    "firewallRules_AllowAllWindowsAzureIps_name": {
+      "value": null
+    },
+    "advisors_DropIndex_name": {
+      "value": null
+    },
+    "advisors_CreateIndex_name": {
+      "value": null
+    },
+    "advisors_SchemaIssue_name": {
+      "value": null
+    },
+    "backupLongTermRetentionVaults_RegisteredVault_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_29_15_0_56_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_30_8_18_28_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_30_8_43_20_name": {
+      "value": null
+    },
+    "auditingPolicies_Default_name_1": {
+      "value": null
+    },
+    "deployments_7bf27df1ebc241e78a8f6cb99be12517_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_29_14_35_13_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_29_21_50_21_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_29_22_11_23_name": {
+      "value": null
+    },
+    "firewallRules_ClientIPAddress_2017_11_30_18_33_13_name": {
+      "value": null
+    },
+    "geoBackupPolicies_Default_name": {
+      "value": null
+    },
+    "advisors_ForceLastGoodPlan_name": {
+      "value": null
+    },
+    "advisors_DbParameterization_name": {
+      "value": null
+    },
+    "transparentDataEncryption_current_name": {
+      "value": null
+    },
+    "hostNameBindings_hpk_overwatch_dev4.azurewebsites.net_name": {
+      "value": null
+    },
+    "hostNameBindings_hpk_overwatch_func.azurewebsites.net_name": {
+      "value": null
+    },
+    "backupLongTermRetentionPolicies_Default_name": {
+      "value": null
+    }
+  }
+}

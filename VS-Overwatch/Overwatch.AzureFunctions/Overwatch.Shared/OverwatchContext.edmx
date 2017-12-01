@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OverwatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="propertyNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="propertyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="sourceName" Type="nvarchar" MaxLength="100" />
+          <Property Name="approximateNumOfPeople" Type="float" />
+          <Property Name="propertyStatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="PropertyAlert">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imageUrl" Type="nvarchar(max)" />
+          <Property Name="createTimestamp" Type="datetime" />
+          <Property Name="propertyId" Type="int" />
+          <Property Name="propertyAlertStatusId" Type="int" Nullable="false" />
+          <Property Name="predictionJson" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PropertyAlertStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="propertyAlertStatus" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="severityId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PropertyStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="propertyStatus" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Severity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="severity" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK__Property__proper__534D60F1">
+          <End Role="PropertyStatus" Type="Self.PropertyStatus" Multiplicity="0..1" />
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="propertyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PropertyA__prope__5070F446">
+          <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+          <End Role="PropertyAlert" Type="Self.PropertyAlert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PropertyAlert">
+              <PropertyRef Name="propertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PropertyA__prope__5629CD9C">
+          <End Role="PropertyAlertStatus" Type="Self.PropertyAlertStatus" Multiplicity="1" />
+          <End Role="PropertyAlert" Type="Self.PropertyAlert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyAlertStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PropertyAlert">
+              <PropertyRef Name="propertyAlertStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PropertyA__sever__59FA5E80">
+          <End Role="Severity" Type="Self.Severity" Multiplicity="1" />
+          <End Role="PropertyAlertStatus" Type="Self.PropertyAlertStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Severity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PropertyAlertStatus">
+              <PropertyRef Name="severityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OverwatchModelStoreContainer">
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PropertyAlert" EntityType="Self.PropertyAlert" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PropertyAlertStatus" EntityType="Self.PropertyAlertStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PropertyStatus" EntityType="Self.PropertyStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Severity" EntityType="Self.Severity" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Property__proper__534D60F1" Association="Self.FK__Property__proper__534D60F1">
+            <End Role="PropertyStatus" EntitySet="PropertyStatus" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PropertyA__prope__5070F446" Association="Self.FK__PropertyA__prope__5070F446">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="PropertyAlert" EntitySet="PropertyAlert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PropertyA__prope__5629CD9C" Association="Self.FK__PropertyA__prope__5629CD9C">
+            <End Role="PropertyAlertStatus" EntitySet="PropertyAlertStatus" />
+            <End Role="PropertyAlert" EntitySet="PropertyAlert" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PropertyA__sever__59FA5E80" Association="Self.FK__PropertyA__sever__59FA5E80">
+            <End Role="Severity" EntitySet="Severity" />
+            <End Role="PropertyAlertStatus" EntitySet="PropertyAlertStatus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OverwatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="propertyNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="propertyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="sourceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PropertyAlerts" Relationship="OverwatchModel.FK__PropertyA__prope__5070F446" FromRole="Property" ToRole="PropertyAlert" />
+          <Property Name="approximateNumOfPeople" Type="Double" />
+          <Property Name="propertyStatusId" Type="Int32" />
+          <NavigationProperty Name="PropertyStatus" Relationship="OverwatchModel.FK__Property__proper__534D60F1" FromRole="Property" ToRole="PropertyStatu" />
+        </EntityType>
+        <EntityContainer Name="OverwatchEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="PropertyAlerts" EntityType="OverwatchModel.PropertyAlert" />
+          <AssociationSet Name="FK__PropertyA__prope__5070F446" Association="OverwatchModel.FK__PropertyA__prope__5070F446">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="PropertyAlert" EntitySet="PropertyAlerts" />
+          </AssociationSet>
+          <EntitySet Name="PropertyStatus1" EntityType="OverwatchModel.PropertyStatus" />
+          <AssociationSet Name="FK__Property__proper__534D60F1" Association="OverwatchModel.FK__Property__proper__534D60F1">
+            <End Role="PropertyStatu" EntitySet="PropertyStatus1" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <EntitySet Name="PropertyAlertStatus" EntityType="OverwatchModel.PropertyAlertStatu" />
+          <AssociationSet Name="FK__PropertyA__prope__5629CD9C" Association="OverwatchModel.FK__PropertyA__prope__5629CD9C">
+            <End Role="PropertyAlertStatu" EntitySet="PropertyAlertStatus" />
+            <End Role="PropertyAlert" EntitySet="PropertyAlerts" />
+          </AssociationSet>
+          <EntitySet Name="Severities" EntityType="OverwatchModel.Severity" />
+          <AssociationSet Name="FK__PropertyA__sever__59FA5E80" Association="OverwatchModel.FK__PropertyA__sever__59FA5E80">
+            <End Role="Severity" EntitySet="Severities" />
+            <End Role="PropertyAlertStatu" EntitySet="PropertyAlertStatus" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PropertyAlert">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="createTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="propertyId" Type="Int32" />
+          <NavigationProperty Name="Property" Relationship="OverwatchModel.FK__PropertyA__prope__5070F446" FromRole="PropertyAlert" ToRole="Property" />
+          <Property Name="propertyAlertStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PropertyAlertStatus" Relationship="OverwatchModel.FK__PropertyA__prope__5629CD9C" FromRole="PropertyAlert" ToRole="PropertyAlertStatu" />
+          <Property Name="predictionJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__PropertyA__prope__5070F446">
+          <End Type="OverwatchModel.Property" Role="Property" Multiplicity="0..1" />
+          <End Type="OverwatchModel.PropertyAlert" Role="PropertyAlert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PropertyAlert">
+              <PropertyRef Name="propertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PropertyStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="propertyStatus" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Properties" Relationship="OverwatchModel.FK__Property__proper__534D60F1" FromRole="PropertyStatu" ToRole="Property" />
+        </EntityType>
+        <Association Name="FK__Property__proper__534D60F1">
+          <End Type="OverwatchModel.PropertyStatus" Role="PropertyStatu" Multiplicity="0..1" />
+          <End Type="OverwatchModel.Property" Role="Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyStatu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="propertyStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PropertyAlertStatu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="propertyAlertStatus" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PropertyAlerts" Relationship="OverwatchModel.FK__PropertyA__prope__5629CD9C" FromRole="PropertyAlertStatu" ToRole="PropertyAlert" />
+          <Property Name="severityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Severity" Relationship="OverwatchModel.FK__PropertyA__sever__59FA5E80" FromRole="PropertyAlertStatu" ToRole="Severity" />
+        </EntityType>
+        <Association Name="FK__PropertyA__prope__5629CD9C">
+          <End Type="OverwatchModel.PropertyAlertStatu" Role="PropertyAlertStatu" Multiplicity="1" />
+          <End Type="OverwatchModel.PropertyAlert" Role="PropertyAlert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PropertyAlertStatu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PropertyAlert">
+              <PropertyRef Name="propertyAlertStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Severity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="severity1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PropertyAlertStatus" Relationship="OverwatchModel.FK__PropertyA__sever__59FA5E80" FromRole="Severity" ToRole="PropertyAlertStatu" />
+        </EntityType>
+        <Association Name="FK__PropertyA__sever__59FA5E80">
+          <End Type="OverwatchModel.Severity" Role="Severity" Multiplicity="1" />
+          <End Type="OverwatchModel.PropertyAlertStatu" Role="PropertyAlertStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Severity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PropertyAlertStatu">
+              <PropertyRef Name="severityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OverwatchModelStoreContainer" CdmEntityContainer="OverwatchEntities">
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="OverwatchModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="propertyStatusId" ColumnName="propertyStatusId" />
+                <ScalarProperty Name="approximateNumOfPeople" ColumnName="approximateNumOfPeople" />
+                <ScalarProperty Name="sourceName" ColumnName="sourceName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="propertyNumber" ColumnName="propertyNumber" />
+                <ScalarProperty Name="propertyName" ColumnName="propertyName" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyAlerts">
+            <EntityTypeMapping TypeName="OverwatchModel.PropertyAlert">
+              <MappingFragment StoreEntitySet="PropertyAlert">
+                <ScalarProperty Name="predictionJson" ColumnName="predictionJson" />
+                <ScalarProperty Name="propertyAlertStatusId" ColumnName="propertyAlertStatusId" />
+                <ScalarProperty Name="propertyId" ColumnName="propertyId" />
+                <ScalarProperty Name="createTimestamp" ColumnName="createTimestamp" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyStatus1">
+            <EntityTypeMapping TypeName="OverwatchModel.PropertyStatus">
+              <MappingFragment StoreEntitySet="PropertyStatus">
+                <ScalarProperty Name="propertyStatus" ColumnName="propertyStatus" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PropertyAlertStatus">
+            <EntityTypeMapping TypeName="OverwatchModel.PropertyAlertStatu">
+              <MappingFragment StoreEntitySet="PropertyAlertStatus">
+                <ScalarProperty Name="severityId" ColumnName="severityId" />
+                <ScalarProperty Name="propertyAlertStatus" ColumnName="propertyAlertStatus" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Severities">
+            <EntityTypeMapping TypeName="OverwatchModel.Severity">
+              <MappingFragment StoreEntitySet="Severity">
+                <ScalarProperty Name="severity1" ColumnName="severity" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
