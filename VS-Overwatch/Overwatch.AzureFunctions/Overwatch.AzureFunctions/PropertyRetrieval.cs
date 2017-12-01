@@ -37,14 +37,16 @@ namespace Overwatch.AzureFunctions
                         propertyAlert = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().PropertyAlertStatus.propertyAlertStatus,
                         timestamp = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().createTimestamp,
                         imageUrl = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().imageUrl,
-                        severity = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().PropertyAlertStatus.Severity.severity1
+                        severity = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().PropertyAlertStatus.Severity.severity1,
+                        predictionJson = n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).FirstOrDefault().predictionJson
                     },
                     latestFivePropertyAlerts = (n.PropertyAlerts.OrderByDescending(x => x.createTimestamp).Skip(1).Take(5).Select(x => new
                     {
                         propertyAlert = x.PropertyAlertStatus.propertyAlertStatus,
                         timestamp = x.createTimestamp,
                         imageUrl = x.imageUrl,
-                        severity = x.PropertyAlertStatus.Severity.severity1
+                        severity = x.PropertyAlertStatus.Severity.severity1,
+                        predictionJson = x.predictionJson
                     }))
                 });
 

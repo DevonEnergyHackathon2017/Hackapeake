@@ -3,6 +3,7 @@
     <th>Property</th>
     <th>Current Status</th>
     <th>Latest Alert Status</th>
+    <th>Latest Alert Timestamp</th>
     <th>Details</th>
   </thead>
   <tbody>
@@ -10,6 +11,7 @@
       <td>{{property.propertyName}} ({{property.propertyNumber}}) </td>
       <td>{{property.propertyStatus}}</td>
       <td [ngClass]="{hpkalert: property.latestPropertyAlert?.severity==='low'}">{{property.latestPropertyAlert?.propertyAlert}}</td>
+      <td>{{property.latestPropertyAlert?.timestamp}}</td>
       <td><button [routerLink]="['/property-detail', property.id]">Details</button></td>
     </tr>
   </tbody>
