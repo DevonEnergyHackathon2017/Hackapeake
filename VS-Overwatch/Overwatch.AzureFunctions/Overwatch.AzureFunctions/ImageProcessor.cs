@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Overwatch.Shared;
 using System.IO;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace Overwatch.AzureFunctions
 {
@@ -71,7 +72,8 @@ namespace Overwatch.AzureFunctions
         private static bool ProcessAlert(string propertyNumber, string imageUrl, string predictionAsJson, int alertStatusId)
         {
             var result = false;
-            using (var context = new OverwatchEntities())
+            var connString = ConfigurationManager.AppSettings["OverwatchConnectionString"];
+            using (var context = new OverwatchEntities(connString))
             {
                 var property = context.Properties.Where(x => x.propertyNumber == propertyNumber).FirstOrDefault();
                 if (property != null)

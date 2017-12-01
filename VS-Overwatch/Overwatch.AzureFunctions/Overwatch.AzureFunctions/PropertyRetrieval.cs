@@ -17,9 +17,10 @@ namespace Overwatch.AzureFunctions
         [FunctionName("PropertyRetrieval")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
+            var connString = ConfigurationManager.AppSettings["OverwatchConnectionString"];
             KeyValuePair<string, string> propertyId = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "propertyId", true) == 0);
             
-            using (var context = new OverwatchEntities())
+            using (var context = new OverwatchEntities(connString))
             {
                 var query = context.Properties.Select(n => new
                 {

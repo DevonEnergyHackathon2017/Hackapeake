@@ -12,9 +12,15 @@ namespace Overwatch.Shared
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+     
     
     public partial class OverwatchEntities : DbContext
     {
+    	public OverwatchEntities(string connectionString)
+            : base(connectionString)
+        {
+    		}
+    
         public OverwatchEntities()
             : base("name=OverwatchEntities")
         {
