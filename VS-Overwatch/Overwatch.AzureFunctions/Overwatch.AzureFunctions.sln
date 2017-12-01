@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Overwatch.AzureFunctions", "Overwatch.AzureFunctions\Overwatch.AzureFunctions.csproj", "{D885BBB3-384A-4514-B786-92A526E3A49D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overwatch.Shared", "Overwatch.Shared\Overwatch.Shared.csproj", "{78DDC65C-C117-4468-A8DB-66A016A71BCB}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Overwatch.Database", "Overwatch.Database\Overwatch.Database.sqlproj", "{74F54B7E-D225-4585-A45E-51E3CE89FC3D}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Overwatch.AzureResources", "Overwatch.AzureResources\Overwatch.AzureResources.deployproj", "{46216374-A5C4-49FE-88DC-911B9FE43B37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{74F54B7E-D225-4585-A45E-51E3CE89FC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74F54B7E-D225-4585-A45E-51E3CE89FC3D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74F54B7E-D225-4585-A45E-51E3CE89FC3D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{46216374-A5C4-49FE-88DC-911B9FE43B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46216374-A5C4-49FE-88DC-911B9FE43B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46216374-A5C4-49FE-88DC-911B9FE43B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46216374-A5C4-49FE-88DC-911B9FE43B37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
