@@ -13,7 +13,7 @@ export class MainlistComponent implements OnInit {
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:7071/api/PropertyRetrieval').subscribe(data => {
+    this.httpClient.get('http://hpk-overwatch-func.azurewebsites.net/api/PropertyRetrieval').subscribe(data => {
       this.properties = data;
     });
   }

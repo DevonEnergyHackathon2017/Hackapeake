@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
+declare var google: any;
+declare var MarkerClusterer: any;
 
 @Component({
   selector: 'app-property-detail',
@@ -23,15 +25,19 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
        this.id = +params['id'];
 
-       this.httpClient.get('http://localhost:7071/api/PropertyRetrieval?propertyId=' + this.id).subscribe(data => {
+       this.httpClient.get('http://hpk-overwatch-func.azurewebsites.net/api/PropertyRetrieval?propertyId=' + this.id).subscribe(data => {
         this.detail = data;
-        this.latestAlertDescription = this.detail.latestPropertyAlert.propertyAlert;
-        this.imageUrl = this.detail.latestPropertyAlert.imageUrl;
+        if (this.detail.latestPropertyAlert) {
+          this.latestAlertDescription = this.detail.latestPropertyAlert.propertyAlert;
+          this.imageUrl = this.detail.latestPropertyAlert.imageUrl;
+        }
+        
         console.log(this.detail);
         console.log(this.detail.latitude);
         console.log(this.detail.longitude);
 
-        this.httpClient.get('http://localhost:7071/api/Weather?lat=' + this.detail.latitude  + '&long=' + this.detail.longitude)
+        this.httpClient.get('http://hpk-overwatch-func.azurewebsites.net/api/Weather?lat='
+                            + this.detail.latitude  + '&long=' + this.detail.longitude)
         .subscribe(weatherData => {
           this.weatherData = weatherData;
         });
@@ -157,8 +163,6 @@ export class PropertyDetailComponent implements OnInit, OnDestroy {
 
       ///
       });
-
-      
     });
   }
 

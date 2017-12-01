@@ -28,7 +28,7 @@ namespace Overwatch.AzureFunctions
                     propertyNumber = n.propertyNumber,
                     propertyName = n.propertyName,
                     sourceName = n.sourceName,
-                    lattitude = n.latitude,
+                    latitude = n.latitude,
                     longitude = n.longitude,
                     approximateNumOfPeople = n.approximateNumOfPeople,
                     propertyStatus = n.PropertyStatus.propertyStatus,
